@@ -22,7 +22,7 @@ public class Product {
     private String description;
     private BigDecimal price;
     private String category;
-    private LocalDateTime dataCriacao = LocalDateTime.now();
+    private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime updatedAt;
 
 
