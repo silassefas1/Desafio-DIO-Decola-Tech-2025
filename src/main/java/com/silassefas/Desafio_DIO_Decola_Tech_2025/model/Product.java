@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "elite_product")
+@Table(name = "tb_product")
 @Getter
 @Setter
 public class Product {
@@ -25,7 +25,7 @@ public class Product {
     private LocalDateTime dataCriacao = LocalDateTime.now();
     private LocalDateTime updatedAt;
 
-    
+
 
     public Product(Long id, String name, String description, BigDecimal price, String category) {
         this.id = id;
