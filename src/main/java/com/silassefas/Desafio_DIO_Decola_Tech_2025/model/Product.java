@@ -22,11 +22,10 @@ public class Product {
     private String description;
     private BigDecimal price;
     private String category;
-    private LocalDateTime createdAt;
+    private LocalDateTime dataCriacao = LocalDateTime.now();
     private LocalDateTime updatedAt;
 
-    public Product() {
-    }
+    
 
     public Product(Long id, String name, String description, BigDecimal price, String category) {
         this.id = id;
@@ -34,10 +33,10 @@ public class Product {
         this.description = description;
         this.price = price;
         this.category = category;
-        this.createdAt = LocalDateTime.now();
+
     }
 
-    
+
     
 
 }
