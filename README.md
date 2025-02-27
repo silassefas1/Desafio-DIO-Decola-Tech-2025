@@ -12,180 +12,179 @@ Abaixo está o diagrama de classes que representa a estrutura do projeto e as re
 
 ```mermaid
 classDiagram
-    class Produto {
+    class Product {
         - Long id
-        - String nome
-        - String descricao
-        - BigDecimal preco
-        - String categoria
-        - LocalDateTime dataCriacao
-        - LocalDateTime dataAtualizacao
-        + void cadastrar()
-        + void atualizar()
-        + void remover()
-        + Produto buscarPorId(Long id)
-        + List<Produto> buscarPorNome(String nome)
-        + List<Produto> listar()
-        + List<Produto> filtrarPorCategoria(String categoria)
+        - String name
+        - String description
+        - BigDecimal price
+        - String category
+        - LocalDateTime creationDate
+        - LocalDateTime updateDate
+        + void createProduct()
+        + void updateProduct()
+        + void deleteProduct()
+        + Product findById(Long id)
+        + List<Product> findByName(String name)
+        + List<Product> listProducts()
+        + List<Product> filterByCategory(String category)
     }
-    class Estoque {
+    class Stock {
         - Long id
-        - Produto produto
-        - Integer quantidadeDisponivel
-        - Integer minEstoque
-        + void atualizar()
-        + boolean verificarMinimo()
+        - Product product
+        - Integer availableQuantity
+        - Integer minStock
+        + void updateStock()
+        + boolean checkMinimumStock()
     }
-    class MovimentacaoEstoque {
+    class StockMovement {
         - Long id
-        - Produto produto
-        - String tipoMovimentacao
-        - Integer quantidade
-        - LocalDateTime dataMovimentacao
-        + void registrarEntrada()
-        + void registrarSaida()
-        + void ajustar()
+        - Product product
+        - String movementType
+        - Integer quantity
+        - LocalDateTime movementDate
+        + void registerEntry()
+        + void registerExit()
+        + void adjustMovement()
     }
-    class Pedido {
+    class Order {
         - Long id
-        - Cliente cliente
-        - LocalDateTime dataPedido
-        - List<ItemPedido> itens
-        - BigDecimal valorTotal
+        - Customer customer
+        - LocalDateTime orderDate
+        - List<OrderItem> items
+        - BigDecimal totalValue
         - String status
-        + void adicionarItem(ItemPedido item)
-        + void removerItem(ItemPedido item)
-        + BigDecimal calcularValorTotal()
-        + void confirmar()
-        + void cancelar()
+        + void addItem(OrderItem item)
+        + void removeItem(OrderItem item)
+        + BigDecimal calculateTotalValue()
+        + void confirmOrder()
+        + void cancelOrder()
     }
-    class Venda {
+    class Sale {
         - Long id
-        - Pedido pedido
-        - LocalDateTime dataVenda
-        - Pagamento pagamento
-        + void finalizar()
-        + void cancelar()
+        - Order order
+        - LocalDateTime saleDate
+        - Payment payment
+        + void finalizeSale()
+        + void cancelSale()
     }
-    class ItemPedido {
+    class OrderItem {
         - Long id
-        - Pedido pedido
-        - Produto produto
-        - Integer quantidade
-        - BigDecimal precoUnitario
+        - Order order
+        - Product product
+        - Integer quantity
+        - BigDecimal unitPrice
         - BigDecimal subtotal
     }
-    class Pagamento {
+    class Payment {
         - Long id
-        - Venda venda
-        - String formaPagamento
-        - String statusPagamento
-        - BigDecimal valorPago
-        + void processarPagamento()
+        - Sale sale
+        - String paymentMethod
+        - String paymentStatus
+        - BigDecimal amountPaid
+        + void processPayment()
     }
-    class Cliente {
+    class Customer {
         - Long id
-        - String nome
-        - String tipoCliente
+        - String name
+        - String customerType
         - String cnpjCpf
         - String rgCnh
         - String email
-        - String telefone
-        - String endereco
-        - LocalDateTime dataCadastro
-        - List<Venda> historicoCompras
-        + void registrar()
-        + void atualizar()
-        + void remover()
-        + Cliente buscarPorId(Long id)
-        + List<Cliente> listar()
+        - String phone
+        - String address
+        - LocalDateTime registrationDate
+        - List<Sale> purchaseHistory
+        + void registerCustomer()
+        + void updateCustomer()
+        + void deleteCustomer()
+        + Customer findById(Long id)
+        + List<Customer> listCustomers()
     }
-    class Receita {
+    class Revenue {
         - Long id
-        - String descricao
-        - BigDecimal valor
-        - LocalDateTime dataRecebimento
-        + void registrar()
+        - String description
+        - BigDecimal amount
+        - LocalDateTime receiptDate
+        + void createRevenue()
     }
-    class Despesa {
+    class Expense {
         - Long id
-        - String descricao
-        - BigDecimal valor
-        - LocalDateTime dataPagamento
-        + void registrar()
+        - String description
+        - BigDecimal amount
+        - LocalDateTime paymentDate
+        + void createExpense()
     }
-    class TransacaoFinanceira {
+    class FinancialTransaction {
         - Long id
-        - String tipoTransacao
-        - BigDecimal valor
-        - LocalDateTime dataTransacao
-        - String descricao
-        + void registrar()
+        - String transactionType
+        - BigDecimal amount
+        - LocalDateTime transactionDate
+        - String description
+        + void registerTransaction()
     }
-    class Conta {
+    class Account {
         - Long id
-        - String tipoConta
-        - BigDecimal saldoAtual
-        + BigDecimal consultarSaldo()
-        + void atualizarSaldo()
+        - String accountType
+        - BigDecimal currentBalance
+        + BigDecimal checkBalance()
+        + void updateBalance()
     }
-    class Fatura {
+    class Invoice {
         - Long id
-        - Venda venda
-        - LocalDateTime dataEmissao
-        - BigDecimal valorTotal
-        - BigDecimal impostos
-        - String statusFatura
-        - LocalDateTime dataVencimento
-        + void emitir()
-        + void atualizar()
-        + void cancelar()
-        + Fatura buscarPorId(Long id)
-        + List<Fatura> listar()
+        - Sale sale
+        - LocalDateTime issueDate
+        - BigDecimal totalValue
+        - BigDecimal taxes
+        - String invoiceStatus
+        - LocalDateTime dueDate
+        + void createInvoice()
+        + void updateInvoice()
+        + void cancelInvoice()
+        + Invoice findById(Long id)
+        + List<Invoice> listInvoices()
     }
-    class Compra {
+    class Purchase {
         - Long id
-        - Fornecedor fornecedor
-        - LocalDateTime dataCompra
-        - BigDecimal valorTotal
+        - Supplier supplier
+        - LocalDateTime purchaseDate
+        - BigDecimal totalValue
         - String status
-        - String notas
-        + void registrar()
-        + void atualizarStatus()
-        + BigDecimal calcularValorTotal()
-        + List<Compra> listar()
-        + Compra buscarPorId(Long id)
+        - String notes
+        + void createPurchase()
+        + void updatePurchaseStatus()
+        + BigDecimal calculateTotalValue()
+        + List<Purchase> listPurchases()
+        + Purchase findById(Long id)
     }
-    class Fornecedor {
+    class Supplier {
         - Long id
-        - String nome
-        - String contato
-        - String endereco
-        - List<Produto> produtosOfertados
-        - List<Compra> historicoCompras
-        + void registrar()
-        + void atualizar()
-        + void remover()
-        + List<Fornecedor> listar()
-        + Fornecedor buscarPorId(Long id)
+        - String name
+        - String contact
+        - String address
+        - List<Product> offeredProducts
+        - List<Purchase> purchaseHistory
+        + void registerSupplier()
+        + void updateSupplier()
+        + void deleteSupplier()
+        + List<Supplier> listSuppliers()
+        + Supplier findById(Long id)
     }
-    Loja "1" --|> "*" Produto
-    Loja "1" --|> "*" Cliente
-    Loja "1" --|> "*" Pedido
-    Pedido "1" --|> "*" ItemPedido
-    Pedido "1" --> "1" Cliente
-    Pedido "1" --> "1" Venda
-    Venda "1" --> "1" Pagamento
-    ItemPedido "*" --> "1" Produto
-    Receita "1" --> "1" Venda
-    Despesa "1" --> "1" Compra
-    Conta "1" --|> "*" TransacaoFinanceira
-    Fatura "1" --> "1" Venda
-    Compra "1" --> "1" Fornecedor
-    Compra "1" --> "*" Produto
-    Estoque "1" --|> "*" MovimentacaoEstoque
-    MovimentacaoEstoque "1" --> "1" Produto
-    Venda "1" --> "*" MovimentacaoEstoque
+    
+    Order "1" --|> "*" OrderItem
+    Order "1" --> "1" Customer
+    Order "1" --> "1" Sale
+    Sale "1" --> "1" Payment
+    OrderItem "*" --> "1" Product
+    Revenue "1" --> "1" Sale
+    Expense "1" --> "1" Purchase
+    Account "1" --|> "*" FinancialTransaction
+    Invoice "1" --> "1" Sale
+    Purchase "1" --> "1" Supplier
+    Purchase "1" --> "*" Product
+    Stock "1" --|> "*" StockMovement
+    StockMovement "1" --> "1" Product
+    Sale "1" --> "*" StockMovement
+
 
 ```
 ## ✅ Funcionalidades
