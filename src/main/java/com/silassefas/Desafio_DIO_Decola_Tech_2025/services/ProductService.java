@@ -13,9 +13,15 @@ public interface ProductService   {
 
     Product deleteProduct(Long productId);
 
+    Product findById(Long id);
+
     List<Product> findByNameContainingIgnoreCase(String productName);
 
     List<Product> findByCategoryContainingIgnoreCase(String productCategory);
+
+    List<Product> findAll();
+
+
 
 
 }

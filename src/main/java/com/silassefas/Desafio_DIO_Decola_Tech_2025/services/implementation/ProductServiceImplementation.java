@@ -72,5 +72,17 @@ public class ProductServiceImplementation implements ProductService {
     public List<Product> findByCategoryContainingIgnoreCase(String productCategory) {
         return productRepository.findByCategoryContainingIgnoreCase(productCategory);
     }
-    
+
+    @Override
+    public List<Product> findAll() {
+        return productRepository.findAll();
+    }
+
+    @Override
+    public Product findById(Long id) {
+        return productRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Product with ID " + id + " not found."));
+    }
+
+
+
 }
