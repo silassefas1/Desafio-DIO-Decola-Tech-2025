@@ -195,6 +195,18 @@ classDiagram
 💰 Registro de movimentações financeiras  
 📄 Emissão de faturas 
 
+# 🚀 Padrões de Commits
+
+Adotado os seguintes prefixos para descrever o propósito de cada commit:
+
+✨ feat: Nova funcionalidade.
+🐛 fix: Correção de bugs.
+📝 docs: Alterações na documentação.
+💅 style: Mudanças que não afetam a lógica do código (formatação, espaços, etc.).
+🔨 refactor: Melhorias na estrutura do código sem adicionar funcionalidades ou corrigir bugs.
+✅ test: Adição ou modificação de testes.
+🧹 chore: Tarefas de manutenção (configurações, dependências, etc.)
+
 ## 📄 Licença  
 Este projeto é licenciado sob a **Licença de Uso Não Comercial e Sem Alterações**. Você pode usar, copiar e distribuir o código-fonte e a documentação associados a este software exclusivamente para **fins de estudo**, desde que faça isso de forma não comercial. Para mais informações, consulte o arquivo LICENSE.
 
