@@ -20,7 +20,7 @@ public class ProductServiceImplementation implements ProductService {
 
     @Override
     public Product createProduct(Product product) {
-        product.setCreatedAt(java.time.LocalDateTime.now());
+        product.setCreatedAt(java.time.ZonedDateTime.now());
         return productRepository.save(product);
     }
 
@@ -64,13 +64,15 @@ public class ProductServiceImplementation implements ProductService {
     }
 
     @Override
-    public List<Product> findByNameContainingIgnoreCase(String productName) {
-        return productRepository.findByNameContainingIgnoreCase(productName);
+    public List<Product> findByNameContainingIgnoreCaseAndAccents(String productName) {
+        String normalizedName = org.apache.commons.lang3.StringUtils.stripAccents(productName);
+        return productRepository.findByNameContainingIgnoreCase(normalizedName);
     }
 
     @Override
-    public List<Product> findByCategoryContainingIgnoreCase(String productCategory) {
-        return productRepository.findByCategoryContainingIgnoreCase(productCategory);
+    public List<Product> findByCategoryConteningIgnoringCaseAndAccents(String productCategory) {
+        String normalizedCategory = org.apache.commons.lang3.StringUtils.stripAccents(productCategory);
+        return productRepository.findByCategoryContainingIgnoreCase(normalizedCategory);
     }
 
     @Override

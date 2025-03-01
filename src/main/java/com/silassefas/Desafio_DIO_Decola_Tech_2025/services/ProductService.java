@@ -15,9 +15,9 @@ public interface ProductService   {
 
     Product findById(Long id);
 
-    List<Product> findByNameContainingIgnoreCase(String productName);
+    List<Product> findByNameContainingIgnoreCaseAndAccents(String productName);
 
-    List<Product> findByCategoryContainingIgnoreCase(String productCategory);
+    List<Product> findByCategoryConteningIgnoringCaseAndAccents(String productCategory);
 
     List<Product> findAll();
 

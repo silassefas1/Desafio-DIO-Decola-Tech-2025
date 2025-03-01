@@ -22,7 +22,7 @@ public class ProductController {
         return ResponseEntity.ok(productService.createProduct(product));
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product product) {
        return ResponseEntity.ok(productService.updateProduct(id, product));
     }
@@ -39,13 +39,13 @@ public class ProductController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<Product>> findByNameContainingIgnoreCase(@RequestParam String productName){
-        return ResponseEntity.ok(productService.findByNameContainingIgnoreCase(productName));
+    public ResponseEntity<List<Product>> findByNameContainingIgnoreCaseAndAccents(@RequestParam String productName){
+        return ResponseEntity.ok(productService.findByNameContainingIgnoreCaseAndAccents(productName));
     }
 
     @GetMapping("/category")
-    public ResponseEntity<List<Product>> findByCategoryContainingIgnoreCase(@RequestParam String productCategory) {
-        return ResponseEntity.ok(productService.findByCategoryContainingIgnoreCase(productCategory));
+    public ResponseEntity<List<Product>> findByCategoryConteningIgnoringCaseAndAccents(@RequestParam String productCategory) {
+        return ResponseEntity.ok(productService.findByCategoryConteningIgnoringCaseAndAccents(productCategory));
     }
 
     @GetMapping
