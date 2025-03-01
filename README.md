@@ -195,7 +195,7 @@ classDiagram
 💰 Registro de movimentações financeiras  
 📄 Emissão de faturas 
 
-# 🚀 Padrões de Commits
+## 🚀 Padrões de Commits
 
 Adotado os seguintes prefixos para descrever o propósito de cada commit:
 
