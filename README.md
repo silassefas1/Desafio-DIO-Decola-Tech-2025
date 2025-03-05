@@ -18,15 +18,15 @@ classDiagram
         - String description
         - BigDecimal price
         - String category
-        - LocalDateTime creationDate
-        - LocalDateTime updateDate
+        - ZonedDateTime createdAt
+        - ZonedDateTime updateAr
         + void createProduct()
         + void updateProduct()
         + void deleteProduct()
         + Product findById(Long id)
-        + List<Product> findByName(String name)
-        + List<Product> listProducts()
-        + List<Product> filterByCategory(String category)
+        + List<Product> findByNameContainingIgnoreCaseAndAccents(String name)
+        + List<Product> findAll()
+        + List<Product> findByCategoryConteningIgnoringCaseAndAccents(String category)
     }
     class Stock {
         - Long id
@@ -185,7 +185,6 @@ classDiagram
     StockMovement "1" --> "1" Product
     Sale "1" --> "*" StockMovement
 
-
 ```
 ## ✅ Funcionalidades
 🏷️ Cadastro e gerenciamento de produtos     
@@ -199,13 +198,13 @@ classDiagram
 
 Adotado os seguintes prefixos para descrever o propósito de cada commit:
 
-✨ feat: Nova funcionalidade.
-🐛 fix: Correção de bugs.
-📝 docs: Alterações na documentação.
-💅 style: Mudanças que não afetam a lógica do código (formatação, espaços, etc.).
-🔨 refactor: Melhorias na estrutura do código sem adicionar funcionalidades ou corrigir bugs.
-✅ test: Adição ou modificação de testes.
-🧹 chore: Tarefas de manutenção (configurações, dependências, etc.)
+✨ feat: Nova funcionalidade.<br>
+🐛 fix: Correção de bugs. <br>
+📝 docs: Alterações na documentação.<br>
+💅 style: Mudanças que não afetam a lógica do código (formatação, espaços, etc.).<br>
+🔨 refactor: Melhorias na estrutura do código sem adicionar funcionalidades ou corrigir bugs.<br>
+✅ test: Adição ou modificação de testes.<br>
+🧹 chore: Tarefas de manutenção (configurações, dependências, etc.)<br>
 
 ## 📄 Licença  
 Este projeto é licenciado sob a **Licença de Uso Não Comercial e Sem Alterações**. Você pode usar, copiar e distribuir o código-fonte e a documentação associados a este software exclusivamente para **fins de estudo**, desde que faça isso de forma não comercial. Para mais informações, consulte o arquivo LICENSE.
@@ -215,8 +214,12 @@ Este projeto é licenciado sob a **Licença de Uso Não Comercial e Sem Alteraç
 🔧 **Desenvolvedor:** Silas Sefas de Souza Aquino  
 🌐 **LinkedIn:** [silassefas](https://www.linkedin.com/in/silassefas/)  
 :octocat: **GitHub:** [silassefas1](https://github.com/silassefas1)
-
 Sinta-se à vontade para me conectar nas redes sociais! Estou sempre aberto a novas oportunidades e colaborações. 🚀
 
+
+## ⚠ Aviso
+
+Este projeto é de caráter **educacional** e está em constante desenvolvimento.  
+Mudanças significativas podem ocorrer ao longo do tempo, incluindo ajustes na estrutura, funcionalidades e até mesmo na tecnologia utilizada.
 
 Sinta-se à vontade para contribuir e melhorar o projeto! Quaisquer sugestões ou colaborações são bem-vindas. 😊  
