@@ -1,6 +1,6 @@
 # 🌟 Desafio-DIO-Decola-Tech-2025
 
-Este projeto é baseado em uma ideia que tive há algum tempo e, agora, com o conhecimento adquirido, estou colocando-a em prática. O objetivo deste projeto é desenvolver uma API de gerenciamento para uma loja de eletrônicos e assistência técnica. 🛒💻
+Este projeto consiste no desenvolvimento de uma API para o gerenciamento de uma loja de eletrônicos e serviços de assistência técnica. A solução permitirá um controle eficiente de produtos, estoque, vendas, ordens de serviço e atendimento ao cliente, proporcionando uma gestão integrada e otimizada para o negócio. 🛒💻
 
 ## 📜 Descrição do Projeto
 
