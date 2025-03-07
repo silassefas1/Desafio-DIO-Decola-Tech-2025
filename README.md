@@ -19,15 +19,16 @@ classDiagram
         - BigDecimal price
         - String category
         - ZonedDateTime createdAt
-        - ZonedDateTime updateAr
+        - ZonedDateTime updatedAt
         + void createProduct()
         + void updateProduct()
         + void deleteProduct()
         + Product findById(Long id)
         + List<Product> findByNameContainingIgnoreCaseAndAccents(String name)
         + List<Product> findAll()
-        + List<Product> findByCategoryConteningIgnoringCaseAndAccents(String category)
+        + List<Product> findByCategoryContainingIgnoringCaseAndAccents(String category)
     }
+    
     class Stock {
         - Long id
         - Product product
@@ -36,37 +37,32 @@ classDiagram
         + void updateStock()
         + boolean checkMinimumStock()
     }
+    
     class StockMovement {
         - Long id
         - Product product
-        - String movementType
+        - MovementType movementType
         - Integer quantity
-        - LocalDateTime movementDate
+        - ZonedDateTime movementDate
         + void registerEntry()
         + void registerExit()
         + void adjustMovement()
     }
+    
     class Order {
         - Long id
         - Customer customer
-        - LocalDateTime orderDate
+        - ZonedDateTime orderDate
         - List<OrderItem> items
         - BigDecimal totalValue
-        - String status
+        - OrderStatus status
         + void addItem(OrderItem item)
         + void removeItem(OrderItem item)
         + BigDecimal calculateTotalValue()
         + void confirmOrder()
         + void cancelOrder()
     }
-    class Sale {
-        - Long id
-        - Order order
-        - LocalDateTime saleDate
-        - Payment payment
-        + void finalizeSale()
-        + void cancelSale()
-    }
+    
     class OrderItem {
         - Long id
         - Order order
@@ -75,24 +71,35 @@ classDiagram
         - BigDecimal unitPrice
         - BigDecimal subtotal
     }
+    
+    class Sale {
+        - Long id
+        - Order order
+        - ZonedDateTime saleDate
+        - Payment payment
+        + void finalizeSale()
+        + void cancelSale()
+    }
+    
     class Payment {
         - Long id
         - Sale sale
-        - String paymentMethod
-        - String paymentStatus
+        - PaymentMethod paymentMethod
+        - PaymentStatus paymentStatus
         - BigDecimal amountPaid
         + void processPayment()
     }
+    
     class Customer {
         - Long id
         - String name
-        - String customerType
+        - CustomerType customerType
         - String cnpjCpf
         - String rgCnh
         - String email
         - String phone
         - String address
-        - LocalDateTime registrationDate
+        - ZonedDateTime registrationDate
         - List<Sale> purchaseHistory
         + void registerCustomer()
         + void updateCustomer()
@@ -100,62 +107,72 @@ classDiagram
         + Customer findById(Long id)
         + List<Customer> listCustomers()
     }
+    
     class Revenue {
         - Long id
         - String description
         - BigDecimal amount
-        - LocalDateTime receiptDate
+        - ZonedDateTime receiptDate
         + void createRevenue()
     }
+    
     class Expense {
         - Long id
         - String description
         - BigDecimal amount
-        - LocalDateTime paymentDate
+        - ZonedDateTime paymentDate
         + void createExpense()
     }
+    
     class FinancialTransaction {
         - Long id
-        - String transactionType
+        - TransactionType transactionType  
         - BigDecimal amount
-        - LocalDateTime transactionDate
-        - String description
+        - ZonedDateTime transactionDate
+        - String description 
         + void registerTransaction()
     }
-    class Account {
+    
+    class CashFlow {
         - Long id
-        - String accountType
         - BigDecimal currentBalance
+        - List<FinancialTransaction> transactions 
         + BigDecimal checkBalance()
+        + void addSaleTransaction(Sale sale)
+        + void addExpenseTransaction(Expense expense)
         + void updateBalance()
     }
+    
     class Invoice {
         - Long id
         - Sale sale
-        - LocalDateTime issueDate
+        - ZonedDateTime issueDate
         - BigDecimal totalValue
         - BigDecimal taxes
-        - String invoiceStatus
-        - LocalDateTime dueDate
+        - InvoiceStatus invoiceStatus
+        - ZonedDateTime dueDate
         + void createInvoice()
         + void updateInvoice()
         + void cancelInvoice()
         + Invoice findById(Long id)
         + List<Invoice> listInvoices()
     }
+    
     class Purchase {
         - Long id
         - Supplier supplier
-        - LocalDateTime purchaseDate
+        - ZonedDateTime purchaseDate
         - BigDecimal totalValue
-        - String status
+        - PurchaseStatus status
         - String notes
+        - List<Product> products
         + void createPurchase()
         + void updatePurchaseStatus()
         + BigDecimal calculateTotalValue()
         + List<Purchase> listPurchases()
         + Purchase findById(Long id)
     }
+    
     class Supplier {
         - Long id
         - String name
@@ -170,20 +187,59 @@ classDiagram
         + Supplier findById(Long id)
     }
     
-    Order "1" --|> "*" OrderItem
-    Order "1" --> "1" Customer
-    Order "1" --> "1" Sale
-    Sale "1" --> "1" Payment
-    OrderItem "*" --> "1" Product
-    Revenue "1" --> "1" Sale
-    Expense "1" --> "1" Purchase
-    Account "1" --|> "*" FinancialTransaction
-    Invoice "1" --> "1" Sale
-    Purchase "1" --> "1" Supplier
-    Purchase "1" --> "*" Product
-    Stock "1" --|> "*" StockMovement
-    StockMovement "1" --> "1" Product
-    Sale "1" --> "*" StockMovement
+  %%' ---------------------------
+  %%' Relacionamentos
+  %%' ---------------------------
+    Order "1" -- "*" OrderItem 
+    Order "1" --> "1" Customer 
+    Order "1" --> "1" Sale 
+    Sale "1" --> "1" Payment 
+    OrderItem "*" --> "1" Product 
+    Revenue "1" --> "1" Sale 
+    Expense "1" --> "1" Purchase 
+    CashFlow "1" -- "*" FinancialTransaction 
+    Invoice "1" --> "1" Sale 
+    Purchase "1" --> "1" Supplier 
+    Purchase "1" -- "*" Product 
+    Stock "1" -- "*" StockMovement 
+    StockMovement "1" --> "1" Product 
+    Sale "1" -- "*" StockMovement 
+    
+    %%' ---------------------------
+    %%' Enums Necessários
+    %%' ---------------------------
+
+
+    class CustomerType {
+        <<enumeration>>
+        + INDIVIDUAL
+        + CORPORATE
+    }
+    
+    class PaymentMethod {
+        <<enumeration>>
+        + CASH
+        + CREDIT_CARD
+        + DEBIT_CARD
+        + BANK_TRANSFER
+        + OTHER
+    }
+    
+    class OrderStatus {
+        <<enumeration>>
+        + PENDING
+        + CONFIRMED
+        + CANCELLED
+        + COMPLETED
+    }
+    
+    class PaymentStatus {
+        <<enumeration>>
+        + PENDING
+        + COMPLETED
+        + FAILED
+    }
+
 
 ```
 ## ✅ Funcionalidades
