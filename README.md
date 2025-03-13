@@ -12,6 +12,7 @@ Abaixo está o diagrama de classes que representa a estrutura do projeto e as re
 
 ```mermaid
 classDiagram
+    %% Model Classes
     class Product {
         - Long id
         - String name
@@ -60,11 +61,11 @@ classDiagram
         - Map<Product, Integer> products
         - BigDecimal totalValue
         - OrderStatus status
-        + void addProduct(Product product, Integer quantity)
-        + void removeProduct(Product product)
-        + BigDecimal calculateTotalValue()
-        + void confirmOrder()
-        + void cancelOrder()
+        + Order createOrder(Long customerId, Map<Product, Integer> products)
+        + BigDecimal calculateTotalValue(Map<Product, Integer> products)
+        + Order confirmOrder(Long orderId)
+        + Order cancelOrder(Long orderId)
+        + List<Order> findOrdersByCustomerName(String customerName)
     }
 
     class Sale {
@@ -126,7 +127,10 @@ classDiagram
         + void adjustTransaction()
     }
 
-    %% Enums no final
+
+
+
+    %% Enum Classes 
     class OrderStatus {
         <<enumeration>>
         PENDING
@@ -169,7 +173,7 @@ classDiagram
         ADJUSTMENT
     }
 
-    %% Relacionamentos
+    %% Relacionamentos Principais
     Stock "1" --> "n" StockMovement : logs
     StockMovement "1" --> "1" MovementType : categorized_as
     Stock "1" --> "1" Product : manages
@@ -181,7 +185,6 @@ classDiagram
     Purchase "1" --> "n" Product : includes
     FinancialTransaction "1" --> "1" Purchase : logs
     Customer "1" --> "1" CustomerType : classified_as
-
 
 ```
 ## ✅ Funcionalidades
