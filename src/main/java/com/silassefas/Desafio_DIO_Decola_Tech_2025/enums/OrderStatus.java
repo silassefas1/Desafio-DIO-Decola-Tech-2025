@@ -3,22 +3,24 @@ package com.silassefas.Desafio_DIO_Decola_Tech_2025.enums;
 import lombok.Getter;
 
 @Getter
-public enum CustomerType {
-    INDIVIDUAL("INDIVIDUAL"),
-    BUSINESS("BUSINESS");
+public enum OrderStatus {
+    PENDING("PENDING"),
+    CONFIRMED("CONFIRMED"),
+    CANCELED("CANCELED");
 
     private final String value;
 
-    CustomerType(String value) {
+    OrderStatus(String value) {
         this.value = value;
     }
 
-    public static CustomerType fromValue(String value) {
-        for (CustomerType type : CustomerType.values()) {
+    public static OrderStatus fromValue(String value) {
+        for (OrderStatus type : OrderStatus.values()) {
             if (type.getValue().equals(value)) {
                 return type;
             }
         }
         throw new IllegalArgumentException("Tipo de cliente inválido: " + value);
     }
+
 }
