@@ -63,6 +63,8 @@ classDiagram
         - OrderStatus status
         + Order createOrder(Long customerId, Map<Product, Integer> products)
         + BigDecimal calculateTotalValue(Map<Product, Integer> products)
+        + void addProduct(Product product, Integer quantity);
+        + void removeProduct(Product product, Integer quantity);
         + Order confirmOrder(Long orderId)
         + Order cancelOrder(Long orderId)
         + List<Order> findOrdersByCustomerName(String customerName)
