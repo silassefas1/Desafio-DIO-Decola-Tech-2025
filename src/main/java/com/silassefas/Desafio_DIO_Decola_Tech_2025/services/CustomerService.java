@@ -14,7 +14,7 @@ public interface CustomerService {
 
     Customer findById(Long id);
 
-    Customer findByCpfCnpj(String cpf);
+    Customer findCustomerByCpfCnpj(String cpf);
 
     List<Customer> findAll();
 

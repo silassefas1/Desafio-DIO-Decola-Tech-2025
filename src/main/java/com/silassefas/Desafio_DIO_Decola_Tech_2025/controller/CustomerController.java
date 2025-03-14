@@ -2,6 +2,7 @@ package com.silassefas.Desafio_DIO_Decola_Tech_2025.controller;
 
 import com.silassefas.Desafio_DIO_Decola_Tech_2025.model.Customer;
 import com.silassefas.Desafio_DIO_Decola_Tech_2025.services.CustomerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,8 +12,8 @@ import java.util.List;
 @RequestMapping("/customer")
 public class CustomerController {
 
+    @Autowired
     private final CustomerService customerService;
-
 
     public CustomerController(CustomerService customerService) {
         this.customerService = customerService;
@@ -20,7 +21,7 @@ public class CustomerController {
 
     @PostMapping
     public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer){
-       return ResponseEntity.ok(customerService.createCustomer(customer));
+        return ResponseEntity.ok(customerService.createCustomer(customer));
     }
 
     @GetMapping
@@ -44,8 +45,8 @@ public class CustomerController {
     }
 
     @GetMapping("/cpfCnpj/{cpfCnpj}")
-    public ResponseEntity<Customer> findByCpfCnpj(@PathVariable String cpfCnpj){
-        return ResponseEntity.ok(customerService.findByCpfCnpj(cpfCnpj));
+    public ResponseEntity<Customer> findCustomerByCpfCnpj(@PathVariable String cpfCnpj){
+        return ResponseEntity.ok(customerService.findCustomerByCpfCnpj(cpfCnpj));
     }
 
     @GetMapping("/name/{name}")

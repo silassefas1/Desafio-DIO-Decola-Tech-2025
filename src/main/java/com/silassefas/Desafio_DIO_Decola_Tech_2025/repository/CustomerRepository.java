@@ -11,11 +11,8 @@ import java.util.Optional;
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
-    @Query("SELECT c FROM Customer c WHERE c.cnpj = :cnpj")
-    Optional<Customer> findCustomerByCnpj(String cnpj);
-
-    @Query("SELECT c FROM Customer c WHERE c.cpf = :cpf")
-    Optional<Customer> findCustomerByCpf(String cpf);
+    @Query("SELECT c FROM Customer c WHERE c.cpfCnpj = :cpfCnpj")
+    Optional<Customer> findCustomerByCpfCnpj(String cpfCnpj);
 
     List<Customer> findByNameContainingIgnoreCase(String customerName);
 }
