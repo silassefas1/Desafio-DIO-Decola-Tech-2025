@@ -23,6 +23,11 @@ public class CustomerController {
        return ResponseEntity.ok(customerService.createCustomer(customer));
     }
 
+    @GetMapping
+    public ResponseEntity<List<Customer>> findAllCustomers(){
+        return ResponseEntity.ok(customerService.findAll());
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Customer> deleteCustomer(@PathVariable Long id){
         return ResponseEntity.ok(customerService.deleteCustomer(id));
@@ -38,14 +43,9 @@ public class CustomerController {
         return ResponseEntity.ok(customerService.findById(id));
     }
 
-    @GetMapping("/cnpj/{cnpj}")
-    public ResponseEntity<Customer> findByCnpj(@PathVariable String cnpj){
-        return ResponseEntity.ok(customerService.findByCnpj(cnpj));
-    }
-
-    @GetMapping("/cpf/{cpf}")
-    public ResponseEntity<Customer> findByCpf(@PathVariable String cpf){
-        return ResponseEntity.ok(customerService.findByCpf(cpf));
+    @GetMapping("/cpfCnpj/{cpfCnpj}")
+    public ResponseEntity<Customer> findByCpfCnpj(@PathVariable String cpfCnpj){
+        return ResponseEntity.ok(customerService.findByCpfCnpj(cpfCnpj));
     }
 
     @GetMapping("/name/{name}")

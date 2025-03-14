@@ -30,10 +30,8 @@ public class Customer implements Serializable {
     private CustomerType customerType;
 
     @Column(unique = true)
-    private String cnpj;
+    private String cpfCnpj;
 
-    @Column(unique = true)
-    private String cpf;
     private String email;
     private String phone;
     private String address;
@@ -43,12 +41,11 @@ public class Customer implements Serializable {
     public Customer(){
     }
 
-    public Customer(Long id, String name, CustomerType customerType, String cnpj, String cpf, String email, String phone, String address) {
+    public Customer(Long id, String name, CustomerType customerType, String cpfCnpj, String email, String phone, String address) {
         this.id = id;
         this.name = name;
         this.customerType = customerType;
-        this.cnpj = cnpj;
-        this.cpf = cpf;
+        this.cpfCnpj = cpfCnpj;
         this.email = email;
         this.phone = phone;
         this.address = address;

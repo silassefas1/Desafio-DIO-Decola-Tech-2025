@@ -14,9 +14,9 @@ public interface CustomerService {
 
     Customer findById(Long id);
 
-    Customer findByCpf(String cpf);
+    Customer findByCpfCnpj(String cpf);
 
-    Customer findByCnpj(String cnpj);
+    List<Customer> findAll();
 
     List<Customer> findByNameContainingIgnoreCaseAndAccents(String customerName);
 

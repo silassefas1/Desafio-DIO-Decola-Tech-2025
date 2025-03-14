@@ -3,8 +3,8 @@ package com.silassefas.Desafio_DIO_Decola_Tech_2025.services.implementation;
 import com.silassefas.Desafio_DIO_Decola_Tech_2025.model.Customer;
 import com.silassefas.Desafio_DIO_Decola_Tech_2025.repository.CustomerRepository;
 import com.silassefas.Desafio_DIO_Decola_Tech_2025.services.CustomerService;
+import com.silassefas.Desafio_DIO_Decola_Tech_2025.util.StringNormalizer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,22 +20,12 @@ public class CustomerServiceImplementation implements CustomerService {
         this.customerRepository = customerRepository;
     }
 
-    public String stringNormalize(String stringToNormalize){
-        if(stringToNormalize == null){
-            throw new IllegalArgumentException("Value can't be null");
-        }else {
-            return stringToNormalize.replaceAll("[/.^~´`-]", "");
-        }
-
-    }
 
     @Override
     public Customer createCustomer(Customer customer) {
-        customer.setRegistrationDate(java.time.ZonedDateTime.now());
-        customer.setCnpj(stringNormalize(customer.getCnpj()));
-        customer.setCpf(stringNormalize(customer.getCpf()));
-        customer.setName(stringNormalize(customer.getName()));
-        if(customer.getCpf() != null && !customer.getCpf().trim().isEmpty() || customer.getCnpj() != null && !customer.getCnpj().trim().isEmpty()){
+        customer.setCpfCnpj(StringNormalizer.stringNormalize(customer.getCpfCnpj()));
+        customer.setName(StringNormalizer.stringNormalize(customer.getName()));
+        if(customer.getCpfCnpj() != null && !customer.getCpfCnpj().trim().isEmpty()){
            return customerRepository.save(customer);
         }else
             throw new IllegalArgumentException("CPF or CNPJ cannot be null or empty.");
@@ -47,16 +37,13 @@ public class CustomerServiceImplementation implements CustomerService {
         if (customer.isPresent()) {
             Customer existingCustomer = customer.get();
             if(customerDateToUpdate.getName() != null && !customerDateToUpdate.getName().trim().isEmpty()){
-                existingCustomer.setName(stringNormalize(customerDateToUpdate.getName()));
+                existingCustomer.setName(StringNormalizer.stringNormalize(customerDateToUpdate.getName()));
             }
             if(customerDateToUpdate.getCustomerType() != null){
                 existingCustomer.setCustomerType(customerDateToUpdate.getCustomerType());
             }
-            if(customerDateToUpdate.getCpf() != null && !customerDateToUpdate.getCpf().trim().isEmpty()){
-                existingCustomer.setCpf(stringNormalize(customerDateToUpdate.getCpf()));
-            }
-            if(customerDateToUpdate.getCnpj() != null && !customerDateToUpdate.getCnpj().trim().isEmpty()){
-                existingCustomer.setCnpj(stringNormalize(customerDateToUpdate.getCnpj()));
+            if(customerDateToUpdate.getCpfCnpj() != null && !customerDateToUpdate.getCpfCnpj().trim().isEmpty()){
+                existingCustomer.setCpfCnpj(StringNormalizer.stringNormalize(customerDateToUpdate.getCpfCnpj()));
             }
             if(customerDateToUpdate.getEmail() != null && !customerDateToUpdate.getEmail().trim().isEmpty()){
                 existingCustomer.setEmail(customerDateToUpdate.getEmail());
@@ -92,8 +79,8 @@ public class CustomerServiceImplementation implements CustomerService {
 
 
     @Override
-    public Customer findByCpf(String cpf) {
-        Optional<Customer> customer = customerRepository.findCustomerByCpf(stringNormalize(cpf));
+    public Customer findByCpfCnpj(String cpfCnpj) {
+        Optional<Customer> customer = customerRepository.findCustomerByCpf(StringNormalizer.stringNormalize(cpfCnpj));
         if(customer.isPresent()){
             return customer.get();
         }else
@@ -101,14 +88,8 @@ public class CustomerServiceImplementation implements CustomerService {
 
     }
 
-    @Override
-    public Customer findByCnpj(String cnpj) {
-        Optional<Customer> customer = customerRepository.findCustomerByCnpj(stringNormalize(cnpj));
-        if(customer.isPresent()){
-            return customer.get();
-        }else
-            throw new IllegalArgumentException("Customer not found.");
-
+    public List<Customer> findAll(){
+        return customerRepository.findAll();
     }
 
     @Override
