@@ -1,5 +1,6 @@
 package com.silassefas.Desafio_DIO_Decola_Tech_2025.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.silassefas.Desafio_DIO_Decola_Tech_2025.enums.CustomerType;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
@@ -38,7 +39,8 @@ public class Customer implements Serializable {
     private String phone;
     private String address;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JsonIgnore
     private List<Order> orders = new ArrayList<>();
     private ZonedDateTime registrationDate;
 
