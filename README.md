@@ -60,23 +60,27 @@ classDiagram
         - ZonedDateTime orderDate
         - Map<Product, Integer> products
         - BigDecimal totalValue
-        - OrderStatus status
-        + Order createOrder(Long customerId, Map<Product, Integer> products)
+        - OrderStatus status  // Adicionar status como CART, PENDING, CONFIRMED, CANCELED
+        
+        + Order createOrder(Long customerId)  // Cria um novo carrinho de compras
         + BigDecimal calculateTotalValue(Map<Product, Integer> products)
-        + void addProduct(Product product, Integer quantity);
-        + void removeProduct(Product product, Integer quantity);
-        + Order confirmOrder(Long orderId)
-        + Order cancelOrder(Long orderId)
+        + void addProduct(Product product, Integer quantity)  // Adiciona produto ao carrinho
+        + void removeProduct(Product product, Integer quantity)  // Remove produto do carrinho
+        + void updateProductQuantity(Product product, Integer newQuantity)  // Atualiza a quantidade
+        + void clearCart()  // Limpa o carrinho
+        + Order confirmOrder()  // Transforma o carrinho em um pedido confirmado
+        + Order cancelOrder()  // Cancela o carrinho
         + List<Order> findOrdersByCustomerName(String customerName)
     }
 
     class Sale {
         - Long id
-        - Order order
+        - Order order  
         - ZonedDateTime saleDate
         - PaymentStatus paymentStatus
-        + void finalizeSale()
-        + void cancelSale()
+        
+        + void finalizeSale()  
+        + void cancelSale() 
         + Order findOrderByCustomerName(String name)
     }
 
