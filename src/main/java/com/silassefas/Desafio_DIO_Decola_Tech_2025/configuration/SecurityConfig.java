@@ -3,8 +3,10 @@ package com.silassefas.Desafio_DIO_Decola_Tech_2025.configuration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,8 +23,8 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable()) // Desativa CSRF para permitir H2 Console e API funcionar corretamente
-                .headers(headers -> headers.frameOptions(frame -> frame.disable())) // Permite H2 Console ser carregado em iframe
+                .csrf(AbstractHttpConfigurer::disable) // Desativa CSRF para permitir H2 Console e API funcionar corretamente
+                .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable)) // Permite H2 Console ser carregado em iframe
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/h2-console/**").hasRole("ADMIN") // Apenas ADMIN pode acessar
                         .requestMatchers("/api/auth/**").permitAll() // Libera acesso apenas para autenticação
