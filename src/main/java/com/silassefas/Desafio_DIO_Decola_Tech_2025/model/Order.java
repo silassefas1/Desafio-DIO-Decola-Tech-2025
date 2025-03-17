@@ -1,10 +1,11 @@
 package com.silassefas.Desafio_DIO_Decola_Tech_2025.model;
 
 import com.silassefas.Desafio_DIO_Decola_Tech_2025.enums.OrderStatus;
-import com.silassefas.Desafio_DIO_Decola_Tech_2025.model.Customer;
-import com.silassefas.Desafio_DIO_Decola_Tech_2025.model.Product;
-import lombok.*;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,7 +28,7 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus status; // PENDING, CONFIRMED, CANCELED
 
-    @ElementCollection(fetch = FetchType.LAZY)
+    @ElementCollection(fetch = FetchType.EAGER)
     @MapKeyJoinColumn(name = "product_id")
     @Column(name = "quantity")
     private Map<Product, Integer> products = new HashMap<>();
