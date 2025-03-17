@@ -42,7 +42,7 @@ public class Product {
         this.description = description;
         this.price = price;
         this.category = category;
-
+        this.createdAt = ZonedDateTime.now();
     }
 
 
