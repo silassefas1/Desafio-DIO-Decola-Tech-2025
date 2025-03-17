@@ -9,6 +9,8 @@ import lombok.Setter;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -35,10 +37,14 @@ public class Customer implements Serializable {
     private String email;
     private String phone;
     private String address;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Order> orders = new ArrayList<>();
     private ZonedDateTime registrationDate;
 
 
     public Customer(){
+        this.registrationDate = ZonedDateTime.now();
     }
 
     public Customer(Long id, String name, CustomerType customerType, String cpfCnpj, String email, String phone, String address) {
@@ -50,6 +56,7 @@ public class Customer implements Serializable {
         this.phone = phone;
         this.address = address;
         this.registrationDate = ZonedDateTime.now();
+        this.orders = new ArrayList<>();
 
     }
 }

@@ -15,4 +15,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
     Optional<Customer> findCustomerByCpfCnpj(String cpfCnpj);
 
     List<Customer> findByNameContainingIgnoreCase(String customerName);
+
+    Customer findByName(String customerName);
 }
